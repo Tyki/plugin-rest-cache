@@ -1,0 +1,68 @@
+{
+  "name": "strapi-provider-rest-cache-aws-s3",
+  "version": "4.2.9",
+  "description": "Speed-up HTTP requests with AWS S3",
+  "license": "MIT",
+  "strapi": {
+    "displayName": "REST Cache (AWS S3)",
+    "name": "strapi-provider-rest-cache-aws-s3",
+    "description": "AWS S3 provider for REST Cache plugin",
+    "kind": "plugin"
+  },
+  "keywords": [
+    "strapi",
+    "provider",
+    "rest-cache",
+    "aws",
+    "s3"
+  ],
+  "author": {
+    "name": "Strapi Community",
+    "url": "https://github.com/strapi-community/"
+  },
+  "maintainers": [
+    {
+      "name": "Baptiste Leulliette",
+      "email": "bleulliette@kaliop.com",
+      "url": "https://kaliop.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strapi-community/strapi-plugin-rest-cache.git",
+    "directory": "packages/strapi-provider-rest-cache-aws-s3"
+  },
+  "bugs": {
+    "url": "https://github.com/strapi-community/strapi-plugin-rest-cache/issues"
+  },
+  "homepage": "https://strapi-community.github.io/strapi-plugin-rest-cache/",
+  "main": "lib/index.js",
+  "files": [
+    "lib/**/*.js"
+  ],
+  "scripts": {
+    "lint": "run-s eslint:fix prettier:fix",
+    "eslint": "eslint ./lib",
+    "eslint:fix": "eslint ./lib --fix",
+    "prettier": "prettier --check ./lib",
+    "prettier:fix": "prettier --write ./lib",
+    "test": "run-s test:*",
+    "test:lint": "run-s eslint prettier"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.750.0"
+  },
+  "devDependencies": {
+    "@strapi/strapi": "^4.11.7",
+    "strapi-plugin-rest-cache": "^4.2.9"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^4.0.0",
+    "strapi-plugin-rest-cache": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "gitHead": "80f7c4b1c3915484e282597292cd1f5c749cbe8f"
+}

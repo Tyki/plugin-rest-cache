@@ -12,21 +12,25 @@
     "postinstall:memory": "cpy . ../playgrounds/memory/ --cwd=shared",
     "postinstall:redis": "cpy . ../playgrounds/redis/ --cwd=shared",
     "postinstall:couchbase": "cpy . ../playgrounds/couchbase/ --cwd=shared",
+    "postinstall:aws-s3": "cpy . ../playgrounds/aws-s3/ --cwd=shared",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "dev:memory": "yarn workspace @strapi-plugin-rest-cache/playground-memory develop",
     "dev:redis": "yarn workspace @strapi-plugin-rest-cache/playground-redis develop",
     "dev:couchbase": "yarn workspace @strapi-plugin-rest-cache/playground-couchbase develop",
+    "dev:aws-s3": "yarn workspace @strapi-plugin-rest-cache/playground-aws-s3 develop",
     "profile:memory": "cd ./playgrounds/memory && 0x -o -D .profile -P 'autocannon --warmup [ -c 1 -d 3 ] -c 100 -p 10 -d 120 http://localhost:1337/api/homepage?populate=*' start-profiler.js",
     "profile:redis": "cd ./playgrounds/redis && 0x -o -D .profile -P 'autocannon --warmup [ -c 1 -d 3 ] -c 100 -p 10 -d 120 http://localhost:1337/api/homepage?populate=*' start-profiler.js",
     "profile:couchbase": "cd ./playgrounds/couchbase && 0x -o -D .profile -P 'autocannon --warmup [ -c 1 -d 3 ] -c 100 -p 10 -d 120 http://localhost:1337/api/homepage?populate=*' start-profiler.js",
+    "profile:aws-s3": "cd ./playgrounds/aws-s3 && 0x -o -D .profile -P 'autocannon --warmup [ -c 1 -d 3 ] -c 100 -p 10 -d 120 http://localhost:1337/api/homepage?populate=*' start-profiler.js",
     "lint": "lerna run lint --stream",
     "test:lint": "lerna run test:lint --stream",
     "test:e2e": "run-s test:e2e:*",
     "test:e2e:memory": "yarn workspace @strapi-plugin-rest-cache/playground-memory test:e2e",
     "test:e2e:redis": "yarn workspace @strapi-plugin-rest-cache/playground-redis test:e2e",
-    "test:e2e:couchbase": "yarn workspace @strapi-plugin-rest-cache/playground-couchbase test:e2e"
+    "test:e2e:couchbase": "yarn workspace @strapi-plugin-rest-cache/playground-couchbase test:e2e",
+    "test:e2e:aws-s3": ""
   },
   "license": "MIT",
   "resolutions": {
@@ -60,7 +64,7 @@
     "yorkie": "^2.0.0"
   },
   "engines": {
-    "node": ">=14.0.0",
+    "node": ">=14.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
   "lint-staged": {
