@@ -11,6 +11,8 @@ module.exports = ({ env }) => {
           options: {
             accessKeyId: env('ACCESS_KEY_ID'),
             secretAccessKey: env('SECRET_ACCESS_KEY'),
+            bucketName: env('CACHE_BUCKET_NAME'),
+            region: env('CACHE_S3_REGION', 'eu-west-1'),
           },
         },
         // loads shared config (from /shared folder)

@@ -7,21 +7,22 @@ const {
   GetObjectCommand,
   PutObjectCommand,
   DeleteObjectCommand,
+  ListObjectsV2Command,
 } = require('@aws-sdk/client-s3');
-
-const Bucket = 'bleulliette-strapi-cache';
 
 class AWSS3CacheProvider extends CacheProvider {
   constructor(options) {
     super();
 
     this.client = new S3Client({
-      region: 'eu-north-1',
+      region: options.region,
       credentials: {
         accessKeyId: options.accessKeyId,
         secretAccessKey: options.secretAccessKey,
       },
     });
+
+    this.bucket = options.bucketName;
   }
 
   /**
@@ -29,7 +30,7 @@ class AWSS3CacheProvider extends CacheProvider {
    */
   async get(key) {
     const command = new GetObjectCommand({
-      Bucket,
+      Bucket: this.bucket,
       Key: key,
     });
 
@@ -64,7 +65,7 @@ class AWSS3CacheProvider extends CacheProvider {
    */
   async set(key, val, maxAge = 3600) {
     const command = new PutObjectCommand({
-      Bucket,
+      Bucket: this.bucket,
       Key: key,
       Body: JSON.stringify({
         ttl: new Date().getTime() + maxAge,
@@ -88,7 +89,7 @@ class AWSS3CacheProvider extends CacheProvider {
    */
   async del(key) {
     const command = new DeleteObjectCommand({
-      Bucket,
+      Bucket: this.bucket,
       Key: key,
     });
 
@@ -96,7 +97,29 @@ class AWSS3CacheProvider extends CacheProvider {
   }
 
   async keys() {
-    // return this.cache.keys();
+    try {
+      let files = [];
+      let continuationToken;
+
+      do {
+        const command = new ListObjectsV2Command({
+          Bucket: this.bucket,
+          ContinuationToken: continuationToken, // For pagination
+        });
+
+        const response = await this.client.send(command);
+
+        if (response.Contents) {
+          files = files.concat(response.Contents.map((file) => file.Key));
+        }
+
+        continuationToken = response.NextContinuationToken; // For next page
+      } while (continuationToken);
+
+      return files;
+    } catch (error) {
+      console.error('Error listing files:', error);
+    }
   }
 
   get ready() {
